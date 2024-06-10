@@ -1,5 +1,5 @@
-#  Airbean - Gruppuppgift_node_basgrupp1
-###  Created by Dylan, Eric, Jonathan, Marina, Shahin, Sofia
+#  individuell_uppgift_node
+###  Created by Eric
 Link to document: https://docs.google.com/document/d/1s3K9dKXD69TZhR_Ufa98Wu0PPgqFp-YzjAf2Fx0z-jM/edit?usp=sharing
 
 ###  The description of the task:
