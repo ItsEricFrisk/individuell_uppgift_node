@@ -2,8 +2,9 @@
 
 ### Created by Eric
 
-# The link below only applies to the group project
+Instructions for admin are at the bottom
 
+The link below only applies to the group project
 Link to document: https://docs.google.com/document/d/1s3K9dKXD69TZhR_Ufa98Wu0PPgqFp-YzjAf2Fx0z-jM/edit?usp=sharing
 
 ### The description of the task:
