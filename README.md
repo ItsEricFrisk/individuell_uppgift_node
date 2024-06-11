@@ -208,7 +208,7 @@ Will give the user this response:
 
 # Admin interface
 
-You must be logged in as an admin to run the functions below.
+You must be logged in as an admin.
 Create your own admin account or use this:
 
 ```json
