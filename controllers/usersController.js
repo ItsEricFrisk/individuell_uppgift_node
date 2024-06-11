@@ -54,11 +54,12 @@ const createAdmin = async (req, res) => {
   }
 };
 
+// login as admin
 const loginAdmin = async (req, res) => {
   const { error } = userSchemaAdmin.validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
-  const { username, password } = req.body;
+  const { username, password, role } = req.body;
 
   try {
     // Get information about the admin from database
@@ -70,9 +71,9 @@ const loginAdmin = async (req, res) => {
     }
 
     // Checking if admin is filled in role
-    if (admin.role !== "admin") {
+    if (role !== "admin") {
       return res.status(400).send({
-        error: "User is not an admin",
+        Error: "The role is incorrect",
       });
     }
 
