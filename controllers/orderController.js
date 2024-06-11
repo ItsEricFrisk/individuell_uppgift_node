@@ -1,5 +1,5 @@
 import db from "../db/database.js";
-import menu from "../services/menu.js";
+// import menu from "../services/menu.js";
 import createDeliveryTime from "../services/createDeliveryTime.js";
 
 // To delete a product from the order
@@ -80,28 +80,23 @@ const createOrder = async (req, res) => {
         error: "Each order must contain id, title, desc, and price.",
       });
     }
-
-    let itemFound = false;
-    for (let item of menu) {
-      if (
-        item._id === order.id &&
-        item.title === order.title &&
-        item.desc === order.desc &&
-        item.price === order.price
-      ) {
-        itemFound = true;
-        break;
-      }
-    }
-
-    if (!itemFound) {
-      return res.status(400).json({
-        error: "Items must match menu.",
-      });
-    }
   }
 
   try {
+    const existingMenu = await db["menu"].findOne({ _id: "menu" });
+
+    // Checks if all items in the order exist in the menu
+    for (let orderItem of newOrder) {
+      const menuItem = existingMenu.items.find(
+        (item) => item._id === orderItem.id
+      );
+      if (!menuItem) {
+        return res.status(400).json({
+          Message: "Items must match menu.",
+        });
+      }
+    }
+
     // Adds estimated delivery to object
     const { userId } = req.query;
     if (userId === undefined) {
@@ -116,7 +111,6 @@ const createOrder = async (req, res) => {
     }
 
     //Inserts created data into database
-
     await db["order"].insert({
       orderId: myOrderId,
       estDelivery: createDeliveryTime(),
@@ -126,7 +120,6 @@ const createOrder = async (req, res) => {
     // Returns order ID for created order
     return res.status(201).json(`Your order id: ${myOrderId}`);
   } catch (error) {
-    console.log(error);
     return res.status(500).send({ error: "Error adding new order." });
   }
 };
@@ -163,28 +156,23 @@ const addItemCart = async (req, res) => {
         error: "Each order must contain id, title, desc and price",
       });
     }
-    let itemFound = false;
-
-    for (let item of menu) {
-      if (
-        item._id === id &&
-        item.title === title &&
-        item.desc === desc &&
-        item.price === price
-      ) {
-        itemFound = true;
-        break;
-      }
-    }
-
-    if (!itemFound) {
-      return res.status(400).json({
-        error: "Items must match menu",
-      });
-    }
   }
 
   try {
+    const existingMenu = await db["menu"].findOne({ _id: "menu" });
+
+    // Checks if all items in the order exist in the menu
+    for (let orderItem of updatedItems) {
+      const menuItem = existingMenu.items.find(
+        (item) => item._id === orderItem.id
+      );
+      if (!menuItem) {
+        return res.status(400).json({
+          Message: "Items must match menu.",
+        });
+      }
+    }
+
     const existingOrder = await db["order"].findOne({ orderId });
     if (!existingOrder) {
       return res.status(404).json({ message: "Order not found" });
@@ -197,9 +185,9 @@ const addItemCart = async (req, res) => {
       .status(200)
       .json({ message: "Order has been updated successfully", orderId });
   } catch (error) {
-    console.error("Error updating order");
-
-    return res.status(500).send({ error: "Error updating order" });
+    return res
+      .status(500)
+      .send({ error: "Error updating order", ErrorMessage: error.message });
   }
 };
 

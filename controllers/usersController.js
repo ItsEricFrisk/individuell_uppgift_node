@@ -28,7 +28,7 @@ const createAdmin = async (req, res) => {
     }
 
     // If the user enters something other than admin, send an error message
-    if (role != "admin") {
+    if (role !== "admin") {
       return res.status(400).send("The role is incorrect.");
     }
 
@@ -79,6 +79,7 @@ const loginAdmin = async (req, res) => {
     // Compares password with hashed password in database
     const validPassword = await bcrypt.compare(password, admin.password);
 
+    // If the password is incorrect.
     if (!validPassword) {
       return res.status(401).json({
         message: `Incorrect username or password.`,
