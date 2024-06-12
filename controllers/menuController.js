@@ -195,11 +195,14 @@ const createOffers = async (req, res) => {
     for (let offer of newOffer) {
       for (let product of offer.products) {
         const menuProduct = existingMenu.items.find(
-          (item) => item._id === product._id
+          (item) =>
+            item._id === product._id &&
+            item.title === product.title &&
+            item.desc === product.desc
         );
         if (!menuProduct) {
           return res.status(400).json({
-            Error: `The product with _id ${product._id} must match the products in the menu`,
+            Error: `The products must match the products in the menu`,
           });
         }
       }
