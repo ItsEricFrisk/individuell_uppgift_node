@@ -8,10 +8,6 @@ The link below only applies to the group project
 
 Link to document: https://docs.google.com/document/d/1s3K9dKXD69TZhR_Ufa98Wu0PPgqFp-YzjAf2Fx0z-jM/edit?usp=sharing
 
-### The description of the task:
-
-In this group work, you will create an API for the web app Airbean where you can order coffee and have it delivered via drone (drones are not included in the task). ATTENTION! You do not need to do any frontend, only the backend is your task.
-
 ### Follow these steps to run the project:
 
 **1. Clone git-repo**
